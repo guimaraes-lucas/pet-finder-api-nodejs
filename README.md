@@ -56,17 +56,3 @@ Exemplo de JSON para requisição POST `/api/pets`:
   "userId": 21
 }
 ```
-
-**Importante**
-
-A fim de maior organização, o retorno das requisições é padronizado para todos os endpoints
-
-```json
-{ "error": false | "<message>", "<feature>": object | array }
-```
-
-Onde o `error` indica se houve ou não um erro, caso seja `false` não ocorreu erro, em caso de erro ele será a mensagem do mesmo, e `feature` se transforma no nome do recurso que o endpoint manipulou e seu valor é o objeto de um recurso ou uma lista desses recursos. Por exemplo:
-
-```json
-{ "error": false, "pets": [{...}, {...}] }
-```

@@ -1,13 +1,29 @@
 const status = require('http-status')
 const httpUtil = require('../util/http.js')
 const sequelize = require('../database/database')
+const Sequelize = require('sequelize');
 
 const Pet = require('../model/pet')
 
+const Op = Sequelize.Op;
+
 // GET /pets
 exports.findAll = (request, response, next) => {
-  Pet.findAll(httpUtil.treatPageAndLimit(request.query.limit, request.query.page))
-    .then(pets => response.send({ error: false, pets }))
+  let treatedResource = 
+    httpUtil.treatPageAndLimit(
+      request.query.limit, 
+      request.query.page
+    )
+  let filter = {}
+  if (request.query.name) {
+    filter = { where: { name: { [Op.iLike]: `%${request.query.name}%` }} }
+  }
+
+  Pet.findAll({ 
+      ...treatedResource, 
+      ...filter 
+    })
+    .then(pets => response.send(pets))
     .catch(error => next(error))
 }
 
@@ -16,7 +32,7 @@ exports.findByPk = (request, response, next) => {
   Pet.findByPk(request.params.id)
     .then(pet => {
       if (pet) {
-        response.status(status.OK).send({ error: false, pet })
+        response.status(status.OK).send(pet)
       } else {
         response.status(status.NOT_FOUND).send({ error: `Pet "${id}" not found!` })
       }
@@ -45,7 +61,7 @@ exports.create = (request, response, next) => {
       userId: userId
     })
   })
-  .then(pet => response.status(status.CREATED).send({ error: false, pet }))
+  .then(pet => response.status(status.CREATED).send(pet))
   .catch(error => response.status(status.BAD_REQUEST).send({ error: `${error.type} - ${error.message}` }))
 }
 
@@ -73,7 +89,7 @@ exports.update = (request, response, next) => {
     },
     { where: id })
   })
-  .then(pet => response.status(status.OK).send({ error: false, pet }))
+  .then(pet => response.status(status.OK).send(pet))
   .catch(error => next(error))
 }
 

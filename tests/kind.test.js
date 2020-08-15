@@ -16,10 +16,9 @@ describe('Kind feature', () => {
 
   test('should create kind', async () => {
     const { text, statusCode } = await request(app).post(feature).send(template)
-    const { error, kind } = JSON.parse(text)
+    const kind = JSON.parse(text)
 
     expect(statusCode).toBe(status.CREATED)
-    expect(error).toBeFalsy()
     expect(kind.description).toBe(template.description)
   })
 

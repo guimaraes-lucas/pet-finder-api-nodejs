@@ -7,7 +7,7 @@ const Kind = require('../model/kind')
 // GET /kinds
 exports.findAll = (request, response, next) => {
   Kind.findAll(httpUtil.treatPageAndLimit(request.query.limit, request.query.page))
-    .then(kinds => response.send({ error: false, kinds }))
+    .then(kinds => response.send(kinds))
     .catch(error => next(error))
 }
 
@@ -16,7 +16,7 @@ exports.findByPk = (request, response, next) => {
   Kind.findByPk(request.params.id)
     .then(kind => {
       if (kind) {
-        response.status(status.OK).send({ error: false, kind })
+        response.status(status.OK).send(kind)
       } else {
         response.status(status.NOT_FOUND).send({ error: `Kind "${id}" not found!` })
       }
@@ -31,7 +31,7 @@ exports.create = (request, response, next) => {
       description: request.body.description
     })
   })
-  .then(kind => response.status(status.CREATED).send({ error: false, kind }))
+  .then(kind => response.status(status.CREATED).send(kind))
   .catch(error => response.status(status.BAD_REQUEST).send({ error: `${error.type} - ${error.message}` }))
 }
 
@@ -43,7 +43,7 @@ exports.update = (request, response, next) => {
       { where: request.params.id }
     )
   })
-  .then(kind => response.status(status.OK).send({ error: false, kind }))
+  .then(kind => response.status(status.OK).send(kind))
   .catch(error => next(error))
 }
 

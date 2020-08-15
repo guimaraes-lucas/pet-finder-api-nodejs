@@ -7,7 +7,7 @@ const User = require('../model/user')
 // GET /users
 exports.findAll = (request, response, next) => {
   User.findAll(httpUtil.treatPageAndLimit(request.query.limit, request.query.page))
-    .then(users => response.send({ error: false, users}))
+    .then(users => response.send(users))
     .catch(error => next(error))
 }
 
@@ -16,7 +16,7 @@ exports.findByPk = (request, response, next) => {
   User.findByPk(request.params.id)
     .then(user => {
       if (user) {
-        response.status(status.OK).send({ error: false, user})
+        response.status(status.OK).send(user)
       } else {
         response.status(status.NOT_FOUND).send({ error: `User "${id}" not found!` })
       }
@@ -39,7 +39,7 @@ exports.create = (request, response, next) => {
       address: address,
     })
   })
-  .then(user => response.status(status.CREATED).send({ error: false, user }))
+  .then(user => response.status(status.CREATED).send(user))
   .catch(error => response.status(status.BAD_REQUEST).send({ error: `${error.type} - ${error.message}` }))
 }
 
@@ -61,7 +61,7 @@ exports.update = (request, response, next) => {
     },
     { where: id })
   })
-  .then(user => response.status(status.OK).send({ error: false, user }))
+  .then(user => response.status(status.OK).send(user))
   .catch(error => next(error))
 }
 
