@@ -40,7 +40,7 @@ exports.update = (request, response, next) => {
   sequelize.transaction(() => {
     return Kind.update(
       { description: request.body.description },
-      { where: request.params.id }
+      { where: { id: request.params.id }}
     )
   })
   .then(kind => response.status(status.OK).send(kind))
@@ -49,7 +49,7 @@ exports.update = (request, response, next) => {
 
 // DELETE /kinds/1
 exports.delete = (request, response, next) => {
-  Kind.delete(request.params.id)
+  Kind.destroy({ where: { id: request.params.id }})
     .then(response.status(status.NO_CONTENT).send({ error: false }))
     .catch(error => next(error))
 }

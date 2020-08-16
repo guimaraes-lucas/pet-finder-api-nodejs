@@ -67,8 +67,6 @@ exports.create = (request, response, next) => {
 
 // PUT /pets/1
 exports.update = (request, response, next) => {
-  const id = request.params.id
-
   const name = request.body.name
   const race = request.body.race
   const age = request.body.age
@@ -87,7 +85,7 @@ exports.update = (request, response, next) => {
       kindId: kindId,
       userId: userId
     },
-    { where: id })
+    { where: { id: request.params.id }})
   })
   .then(pet => response.status(status.OK).send(pet))
   .catch(error => next(error))
@@ -95,7 +93,7 @@ exports.update = (request, response, next) => {
 
 // DELETE /pets/1
 exports.delete = (request, response, next) => {
-  Pet.delete(request.params.id)
+  Pet.destroy({ where: { id: request.params.id }})
     .then(response.status(status.NO_CONTENT).send({ error: false }))
     .catch(error => next(error))
 }

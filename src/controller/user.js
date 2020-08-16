@@ -45,8 +45,6 @@ exports.create = (request, response, next) => {
 
 // PUT /users/1
 exports.update = (request, response, next) => {
-  const id = request.params.id
-
   const name = request.body.name
   const email = request.body.email
   const password = request.body.password
@@ -59,7 +57,7 @@ exports.update = (request, response, next) => {
       password: password,
       address: address,
     },
-    { where: id })
+    { where: { id: request.params.id }})
   })
   .then(user => response.status(status.OK).send(user))
   .catch(error => next(error))
@@ -67,7 +65,7 @@ exports.update = (request, response, next) => {
 
 // DELETE /users/1
 exports.delete = (request, response, next) => {
-  User.delete(request.params.id)
+  User.destroy({ where: { id: request.params.id }})
     .then(response.status(status.NO_CONTENT).send({ error: false }))
     .catch(error => next(error))
 }
