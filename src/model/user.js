@@ -10,23 +10,23 @@ const User = sequelize.define('user', {
   },
   name: {
     allowNull: false,
-    type: Sequelize.STRING(255),
+    type: Sequelize.STRING(100),
     validate: {
-      len: [2, 255]
+      len: [2, 100]
     }
   },
   email: {
     allowNull: false,
-    type: Sequelize.STRING(255),
+    type: Sequelize.STRING(100),
     validate: {
-      len: [2, 255]
+      len: [2, 100]
     }
   },
   password: {
     allowNull: false,
     type: Sequelize.STRING(60),
     validate: {
-      len: [2, 60]
+      len: [8, 60]
     }
   },
   address: {
