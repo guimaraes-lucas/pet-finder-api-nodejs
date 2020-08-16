@@ -18,6 +18,13 @@ const Pet = sequelize.define('pet', {
       len: [2, 50]
     }
   },
+  race: {
+    allowNull: false,
+    type: Sequelize.STRING(50),
+    validate: {
+      len: [2, 50]
+    }
+  },
   age: {
     allowNull: false,
     type: Sequelize.INTEGER,

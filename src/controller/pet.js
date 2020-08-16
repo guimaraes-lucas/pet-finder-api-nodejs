@@ -43,7 +43,7 @@ exports.findByPk = (request, response, next) => {
 // POST /pets
 exports.create = (request, response, next) => {
   const name = request.body.name
-  const breed = request.body.breed
+  const race = request.body.race
   const age = request.body.age
   const weight = request.body.weight
   const city = request.body.city
@@ -53,7 +53,7 @@ exports.create = (request, response, next) => {
   sequelize.transaction(() => {
     return Pet.create({
       name: name,
-      breed: breed,
+      race: race,
       age: age,
       weight: weight,
       city: city,
@@ -70,7 +70,7 @@ exports.update = (request, response, next) => {
   const id = request.params.id
 
   const name = request.body.name
-  const breed = request.body.breed
+  const race = request.body.race
   const age = request.body.age
   const weight = request.body.weight
   const city = request.body.city
@@ -80,7 +80,7 @@ exports.update = (request, response, next) => {
   sequelize.transaction(() => {
     return Pet.update({
       name: name,
-      breed: breed,
+      race: race,
       age: age,
       weight: weight,
       city: city,
