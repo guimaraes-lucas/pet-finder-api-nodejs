@@ -49,6 +49,7 @@ Exemplo de JSON para requisição POST `/api/pets`:
 ```json
 {
   "name": "Bob",
+  "race": "Pinscher",
   "age": 13,
   "weight": 2.2,
   "city": "Florianópolis",
