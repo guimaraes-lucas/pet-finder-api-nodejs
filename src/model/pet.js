@@ -49,7 +49,7 @@ Pet.belongsTo(Kind, {
 })
 Pet.belongsTo(User, {
   foreignKey: {
-    allowNull: false
+    allowNull: true
   }
 })
 
