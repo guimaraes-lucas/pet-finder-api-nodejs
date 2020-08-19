@@ -2,8 +2,8 @@ const status = require('http-status')
 
 function HttpUtilsException(message, statusCode) {
   this.statusCode = statusCode
-  this.message = message;
-  this.name = "HttpUtilsException";
+  this.message = message
+  this.name = "HttpUtilsException"
 }
 
 const treatPageAndLimit = (psLimit, psPage) => {

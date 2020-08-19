@@ -1,25 +1,29 @@
+require("dotenv-safe").config()
+
 const express = require('express')
 const status = require('http-status')
+const authRoute = require('./route/auth')
 const kindRoute = require('./route/kind')
-const userRoute = require('./route/user')
 const petRoute = require('./route/pet')
+const userRoute = require('./route/user')
 
 const app = express()
 
 app.use(express.json())
 
 app.use(function(request, response, next) {
-  response.header("Access-Control-Allow-Origin", "*");
-  response.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-  response.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  response.setHeader('Access-Control-Allow-Credentials', true);
+  response.header("Access-Control-Allow-Origin", "*")
+  response.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE')
+  response.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
+  response.setHeader('Access-Control-Allow-Credentials', true)
 
-  next();
-});
+  next()
+})
 
+app.use('/api', authRoute)
 app.use('/api', kindRoute)
-app.use('/api', userRoute)
 app.use('/api', petRoute)
+app.use('/api', userRoute)
 
 app.use((request, response, next) => {
   response.status(status.NOT_FOUND).send()

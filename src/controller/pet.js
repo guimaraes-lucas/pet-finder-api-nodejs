@@ -1,11 +1,11 @@
 const status = require('http-status')
 const httpUtil = require('../util/http.js')
 const sequelize = require('../database/database')
-const Sequelize = require('sequelize');
+const Sequelize = require('sequelize')
 
 const Pet = require('../model/pet')
 
-const Op = Sequelize.Op;
+const Op = Sequelize.Op
 
 // GET /pets
 exports.findAll = (request, response, next) => {
