@@ -6,7 +6,7 @@ module.exports = {
       name: process.env.DB_NAME ? process.env.DB_NAME :'pet-finder-development',
       dialect: 'postgres',
       user: 'postgres',
-      password: process.env.DB_NAME ? process.env.DB_PASS :'mypassword'
+      password: process.env.DB_PASS ? process.env.DB_PASS : 'mypassword'
     }
   },
   test: {
